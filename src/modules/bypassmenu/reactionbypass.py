@@ -5,7 +5,7 @@ from src.util.ui import ui
 from src.util.apibypassing import apibypassing
 from src.util.discordutils import discordutils
 from src.util.threading import threading
-from src.util.filesTODOPERMS import files
+from src.util.files import files
 apibypassing = apibypassing()
 
 class reactionbypass:

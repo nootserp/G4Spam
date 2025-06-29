@@ -7,8 +7,7 @@ from src import *
 from src.util.logger import logger
 from src.util.ui import ui
 from src.util.threading import threading
-from src.util.filesTODOPERMS import files
-from src.util.filesTODOPERMS import files
+from src.util.files import files
 
 class formatter:
     def __init__(self):

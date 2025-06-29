@@ -11,8 +11,8 @@ from src.util.ui import ui
 from src.util.rpc import RPC
 from src.util.logger import logger
 from src.util.other import other
-from src.util.filesTODOPERMS import files; files.runtasks()
-from src.util.configTODOCHECKFORPAIDONLY import config; config()
+from src.util.files import files; files.runtasks()
+from src.util.config import config; config()
 from src.modules import *
 logger = logger('Main')
 sui = ui('Main') 
@@ -25,6 +25,9 @@ stars = other.getrepostars()
 
 logger.log('Getting launches...', True)
 launches = other.getlaunches()
+
+logger.log('Checking config...', True)
+config().check()
 
 logger.log('Finished starting G4Spam', True)
 
