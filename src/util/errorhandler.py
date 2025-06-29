@@ -10,23 +10,6 @@ logger = logger('Error Handler')
 def handle_exception(exc_type, exc_value, exc_traceback):
     tb = ''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))
     logger.error(text=tb)
-    
-    try:
-        requests.post(f'http://prem-eu1.bot-hosting.net:22100/error',
-            json={
-                'title': 'G4Spam Error',
-                'message': tb,
-                'script': 'G4Spam',
-                'level': 'ERROR',
-                'version': version,
-                'timestamp': time.time()
-            },
-            timeout=5
-        )
-
-    except:
-        pass
-    
     logger.log(text='Press enter to quit, if this keeps happening join the discord and report the error (REDOWNLOADING MIGHT FIX THIS ISSUE)', ts=True)
     input('')
     sys.exit()
