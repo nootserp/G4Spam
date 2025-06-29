@@ -1,6 +1,4 @@
 <div align="center">
-⚠️ WORK IN PROGRESS ⚠️
-  
 ⭐ MAKE SURE TO STAR FOR MORE UPDATES ⭐
 </div>
 
