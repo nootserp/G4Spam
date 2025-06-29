@@ -62,7 +62,7 @@ class spammer:
 
     def menu(self):
         self.ui.prep()
-        self.webhook = self.ui.input('Webhook')
-        self.message = self.ui.input('Message')
+        self.webhook = self.ui.input('Webhook', str)
+        self.message = self.ui.input('Message', str)
 
         self.spam()

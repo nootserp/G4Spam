@@ -19,7 +19,7 @@ class advertisingmenu:
             'Soon',
             'Back'
         ])
-        chosen = self.ui.input('Option')
+        chosen = self.ui.input('Option', str)
 
         if chosen == '1':
             self.menu()

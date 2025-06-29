@@ -23,7 +23,7 @@ class tokenmenu:
             'Formatter',
             'Back'
         ])
-        chosen = self.ui.input('Option')
+        chosen = self.ui.input('Option', str)
 
         if chosen == '1':
             checker().menu()

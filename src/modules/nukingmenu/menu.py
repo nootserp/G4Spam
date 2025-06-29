@@ -19,7 +19,7 @@ class nukingmenu:
             'Will be added later as this is the least important menu and the least used',
             'Back'
         ])
-        chosen = self.ui.input('Option')
+        chosen = self.ui.input('Option', str)
 
         if chosen == '1':
             self.menu()

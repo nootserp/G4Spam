@@ -8,8 +8,8 @@ from src.modules.nukingmenu.menu                   import nukingmenu
 from src.modules.proxymenu.menu                    import proxymenu
 from src.modules.massdmmenu.menu                   import massdmmenu
 from src.modules.massreportmenu.menu               import massreportmenu
-from src.modules.annoyingmenu.menu                 import annoyingmenu
 from src.modules.funnymenu.menu                    import funnymenu
 from src.modules.advertisingmenu.menu              import advertisingmenu
 from src.modules.boostingmenu.menu                 import boostingmenu
+from src.modules.scrapingmenu.menu                 import scrapingmenu
 from src.modules.sources                           import sources

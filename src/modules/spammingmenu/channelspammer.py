@@ -5,7 +5,7 @@ from src.util.ui import ui
 from src.util.apibypassing import apibypassing
 from src.util.discordutils import discordutils
 from src.util.threading import threading
-from src.util.files import files
+from src.util.filesTODOPERMS import files
 from src.util.other import other
 apibypassing = apibypassing()
 
@@ -87,39 +87,43 @@ class channelspammer:
 
     def menu(self):
         self.ui.prep()
-        self.tosendin = self.ui.input('Channel Link')
-        ids = discordutils.extractids(self.tosendin)
+        ids = discordutils.extractids(self.ui.input('Channel Link', str))
         self.serverid = ids['server']
         self.channelid = ids['channel']
 
-        if self.ui.input('Use messages from a file', True):
+        self.invitebypass = self.ui.input('Anti Invite bypass', bool)
+        if self.invitebypass:
+            self.logger.log('Invite bypass is paid only')
+
+        self.dostring = self.ui.input('String', bool)
+        if self.dostring:
+            self.stringlen = self.ui.input('String length', int)
+
+        self.doemoji = self.ui.input('Emoji', bool)
+        if self.doemoji:
+            self.emojilen = self.ui.input('Amount of emojis', int)
+
+        self.doping = self.ui.input('Ping', bool)
+        if self.doping:
+            self.pinglen = self.ui.input('Amount of pings', int)
+
+
+        if self.ui.input('Use messages from a file', bool):
             path = files.choosefile()
             if not os.path.exists(path):
                 self.logger.log('File does not exist')
-                self.messages = [self.ui.input('Message')]
+                self.messages = [self.ui.input('Message', str)]
 
             else:
-                with open(path, 'r') as f:
+                with open(path, 'r', encoding='utf-8') as f:
                     self.messages = f.read().splitlines()
         else:
-            self.messages = [self.ui.input('Message')]
+            self.messages = [self.ui.input('Message', str)]
 
-        self.dostring = self.ui.input('String', True)
-        if self.dostring:
-            self.stringlen = int(self.ui.input('String length', False, True))
-
-        self.doemoji = self.ui.input('Emoji', True)
-        if self.doemoji:
-            self.emojilen = int(self.ui.input('Amount of emojis', False, True))
-
-        self.doping = self.ui.input('Ping', True)
-        if self.doping:
-            self.pinglen = int(self.ui.input('Amount of pings', False, True))
-
-        self.tts = self.ui.input('TTS (reads messages with a voice auto, this needs permissions)', True)
+        self.tts = self.ui.input('TTS (reads messages with a voice auto, this needs permissions)', bool)
         if self.tts:
             self.logger.log('TTS is paid only')
-            
+
         self.delay = self.ui.delayinput()
 
         threading(

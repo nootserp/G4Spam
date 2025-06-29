@@ -16,16 +16,13 @@ class massdmmenu:
     def menu(self):
         self.ui.prep()
         self.ui.createmenu([
-            'One user mass DM',
-            'Use the advertising menu to mass DM with multiple targets',
+            'One user mass DM (PAID)',
             'Back'
         ])
-        chosen = self.ui.input('Option')
+        self.logger.log('Use the advertising menu to mass DM with multiple targets')
+        chosen = self.ui.input('Option', str)
 
         if chosen == '1':
-            self.logger.log('This feature is paid only')
-
-        if chosen == '2':
             self.logger.log('This feature is paid only')
 
         elif chosen == '3':

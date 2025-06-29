@@ -19,11 +19,11 @@ class spammingmenu:
         self.ui.prep()
         self.ui.createmenu([
             'Channel spammer',
-            'Multi-channel spammer',
-            'Reply spammer',
+            'Multi-channel spammer (PAID)',
+            'Reply spammer (PAID)',
             'Back'
         ])
-        chosen = self.ui.input('Option')
+        chosen = self.ui.input('Option', str)
 
         if chosen == '1':
             channelspammer().menu()

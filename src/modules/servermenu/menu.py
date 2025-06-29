@@ -25,7 +25,7 @@ class servermenu:
             'Back'
         ])
 
-        chosen = self.ui.input('Option')
+        chosen = self.ui.input('Option', str)
 
         if chosen == '1':
             joiner().menu()

@@ -5,7 +5,7 @@ from src.util.ui import ui
 from src.util.apibypassing import apibypassing
 from src.util.discordutils import discordutils
 from src.util.threading import threading
-from src.util.files import files
+from src.util.filesTODOPERMS import files
 apibypassing = apibypassing()
 
 class reactionbypass:
@@ -111,13 +111,13 @@ class reactionbypass:
 
     def menu(self):
         self.ui.prep()
-        reactionmessage = self.ui.input('Message Link')
+        reactionmessage = self.ui.input('Message Link', str)
         ids = discordutils.extractids(reactionmessage)
         self.serverid = ids['server']
         self.channelid = ids['channel']
         self.messageid = ids['message']
 
-        self.dodereact = self.ui.input('DeReact (if they reacted before so it registers for the bot again)', True)
+        self.dodereact = self.ui.input('DeReact (if they reacted before so it registers for the bot again)', bool)
         self.delay = self.ui.delayinput()
 
         reactions = discordutils.getreactions(files.gettokens(), self.channelid, self.messageid)
@@ -129,7 +129,7 @@ class reactionbypass:
         for _, (reactionname, emoji_id, count) in enumerate(reactions, 1):
             menu.append(f'{reactionname} » {count}')
         self.ui.createmenu(menu)
-        selected = int(self.ui.input('Choice')) - 1
+        selected = int(self.ui.input('Choice', str)) - 1
         reaction = reactions[selected][0]
         reactionid = reactions[selected][1]
         iscustom = reactionid is not None

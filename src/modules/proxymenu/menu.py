@@ -16,11 +16,11 @@ class proxymenu:
     def menu(self):
         self.ui.prep()
         self.ui.createmenu([
-            'Proxy format',
-            'Proxy Checker',
+            'Proxy format (PAID)',
+            'Proxy Checker (PAID)',
             'Back'
         ])
-        chosen = self.ui.input('Option')
+        chosen = self.ui.input('Option', str)
 
         if chosen == '1':
             self.logger.log('This feature is paid only')

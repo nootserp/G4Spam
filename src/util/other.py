@@ -9,7 +9,6 @@ class other:
     def getrepostars():
         try:
             r = requests.get('https://api.github.com/repos/R3CI/G4Spam', timeout=5)
-            r.raise_for_status()
             return r.json().get('stargazers_count', 'Unk')
         except:
             return 'Unk'
@@ -23,7 +22,6 @@ class other:
     def getlaunches():
         try:
             r = requests.get(f'http://prem-eu1.bot-hosting.net:22100/launches/free', timeout=3)
-            r.raise_for_status()
             data = r.json()
             return str(data.get('count', 0))
         except:

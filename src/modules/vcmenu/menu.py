@@ -16,15 +16,23 @@ class vcmenu:
     def menu(self):
         self.ui.prep()
         self.ui.createmenu([
-            'Maby gonna add this sometime later (i dont wana make this in a shitty way)',
+            'VC joiner (PAID)',
+            'VC Spam join-leave (PAID)',
+            'Soundboard spammer (PAID)',
             'Back'
         ])
-        chosen = self.ui.input('Option')
+        chosen = self.ui.input('Option', str)
 
         if chosen == '1':
-            self.menu()
+            self.logger.log('This feature is paid only')
 
         elif chosen == '2':
+            self.logger.log('This feature is paid only')
+
+        elif chosen == '3':
+            self.logger.log('This feature is paid only')
+
+        elif chosen == '4':
             return
         
         else:

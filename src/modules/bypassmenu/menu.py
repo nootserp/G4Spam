@@ -19,12 +19,12 @@ class bypassmenu:
         self.ui.prep()
         self.ui.createmenu([
             'Reaction bypass',
-            'Button bypass',
-            'Onboarding',
-            'Rules',
+            'Button bypass (PAID)',
+            'Onboarding (PAID)',
+            'Rules (PAID)',
             'Back'
         ])
-        chosen = self.ui.input('Option')
+        chosen = self.ui.input('Option', str)
 
         if chosen == '1':
             reactionbypass().menu()

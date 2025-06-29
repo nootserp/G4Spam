@@ -20,16 +20,16 @@ class sources:
             'Solvers',
             'Back'
         ])
-        chosen = sui.input('Option')
+        chosen = sui.input('Option', str)
 
         if chosen == '1': 
-            webbrowser.open('https://r3ci.sellhub.cx')
+            webbrowser.open('https://r3ci.sell.app')
 
         elif chosen == '2':
-            webbrowser.open('https://r3ci.sellhub.cx')
+            webbrowser.open('https://r3ci.sell.app')
 
         elif chosen == '3':
-            webbrowser.open('https://r3ci.sellhub.cx')
+            webbrowser.open('https://r3ci.sell.app')
 
         elif chosen == '4':
             sui.createmenu([
@@ -38,7 +38,7 @@ class sources:
                 'Tokenu proxies',
                 'Back'
             ])
-            chosen = sui.input('Option')
+            chosen = sui.input('Option', str)
 
             if chosen == '1':   webbrowser.open('https://iproyal.com/?r=429481')
             elif chosen == '2': webbrowser.open('https://marsproxies.com/r/97040')
@@ -51,9 +51,9 @@ class sources:
                 'Tokenu',
                 'Back'
             ])
-            chosen = sui.input('Option')
+            chosen = sui.input('Option', str)
 
-            if chosen == '1':   webbrowser.open('https://r3ci.sellhub.cx/product/Discord-tokens/')
+            if chosen == '1':   webbrowser.open('https://r3ci.sell.app')
             elif chosen == '2': webbrowser.open('https://www.tokenu.net?ref=r3ci')
             else:               sources.menu()
 

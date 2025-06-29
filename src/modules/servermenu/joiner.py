@@ -10,8 +10,7 @@ from src.util.ui import ui
 from src.util.apibypassing import apibypassing
 from src.util.discordutils import discordutils
 from src.util.threading import threading
-from src.util.files import files
-
+from src.util.filesTODOPERMS import files
 apibypassing = apibypassing()
 
 class joiner:
@@ -55,7 +54,7 @@ class joiner:
                 self.join(token, cl)
             
             elif 'captcha_key' in r.text:
-                self.logger.hcaptcha(f'{ctoken} Hcaptcha required')
+                self.logger.hcaptcha(f'{ctoken} Hcaptcha required (Could have been avoided with the paid version)')
 
             elif 'You need to verify' in r.text:
                 self.logger.locked(f'{ctoken} Locked/Flagged')
@@ -69,7 +68,8 @@ class joiner:
 
     def menu(self):
         self.ui.prep()
-        self.invite = self.ui.input('Invite link')
+        self.logger.log('BETTER BYPASSING JOINER IN PAID ONLY!')
+        self.invite = self.ui.input('Invite link', str)
         self.invite = discordutils.extractinv(self.invite)
         self.delay = self.ui.delayinput()
 

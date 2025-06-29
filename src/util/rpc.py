@@ -4,8 +4,8 @@
 # For more details, visit https://github.com/R3CI/G4Spam
 
 from src import *
-from src.util.files import files
-from src.util.config import get
+from src.util.filesTODOPERMS import files
+from src.util.configTODOCHECKFORPAIDONLY import get
 
 class RPC:
     def __init__(self):

@@ -52,6 +52,6 @@ class deleter:
 
     def menu(self):
         self.ui.prep()
-        self.webhook = self.ui.input('Webhook')
+        self.webhook = self.ui.input('Webhook', str)
             
         self.delete()

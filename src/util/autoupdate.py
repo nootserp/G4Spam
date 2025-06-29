@@ -6,6 +6,7 @@
 from src import *
 from src.util.logger import logger
 from src.util.ui import ui
+ui = ui('Auto Update')
 
 class autoupdate:
     def __init__(self):
@@ -153,7 +154,7 @@ class autoupdate:
             self.logger.log('Release notes')
             self.logger.log(body)
             
-            choice = ui.input('Update', True)
+            choice = ui.input('Update', bool)
             if not choice:
                 self.logger.log('Update cancelled by user')
                 return False

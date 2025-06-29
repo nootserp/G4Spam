@@ -8,8 +8,8 @@ from src.util.logger import logger
 from src.util.client import client
 from src.util.ui import ui
 from src.util.threading import threading
-from src.util.files import files
-from src.util.files import files
+from src.util.filesTODOPERMS import files
+from src.util.filesTODOPERMS import files
 
 class checker:
     def __init__(self):
@@ -79,7 +79,7 @@ class checker:
         )
 
         if self.valids:
-            save = self.ui.input('Replace tokens.txt with only valid tokens', True)
+            save = self.ui.input('Replace tokens.txt with only valid tokens', bool)
             if save:
                 with open('data\\tokens.txt', 'w') as f:
                     f.write('\n'.join(self.valids))

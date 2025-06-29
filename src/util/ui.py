@@ -4,12 +4,23 @@
 # For more details, visit https://github.com/R3CI/G4Spam
 
 from src import *
-from src.util.files import files
+from src.util.filesTODOPERMS import files
 from src.util.rpc import RPC
 
 class ui:
     def __init__(self, module=None):
         self.module = module
+
+    def gettimestamp(self):
+        timestamp = dt.now().strftime('%H:%M:%S')
+        return timestamp
+
+    def log(self, text, ts=False):
+        if ts:
+            ts = f'{co.main}[{co.reset}{self.gettimestamp()}{co.main}] '
+        else:
+            ts = ''
+        print(f'{ts}{co.main}[{co.reset}{self.module}{co.main}] {co.main}[{co.reset}{text}{co.main}]{co.reset}')
 
     def title(self, title):
         os.system(f'title {title}')
@@ -57,18 +68,18 @@ class ui:
         print(banner)
         
     def menu(self):
-        menu = fr'''{co.main}
-Free limited version - get paid on https://r3ci.sellhub.cx/product/G4Spam/
+        menu = fr'''{co.reset}
+YOU ARE USING THE FREE LIMITED VERSION | GET PAID HERE │ https://r3ci.sell.app/product/g4spam
 ╭────────────────────────────────────────────────────────────────────────────────────────────────╮
 │                                                                                                │
-│   «01» Server menu        «06» Webhook menu       «11» Annoying menu      «18» Unk             │
-│   «02» Token menu         «07» Nuking menu        «12» Funny menu         «17» Unk             │
+│   «01» Server menu        «06» Webhook menu       «11» Unk                «18» Unk             │
+│   «02» Token menu         «07» Nuking menu        «12» Funnny menu        «17» Unk             │
 │   «03» Spamming menu      «08» Proxy menu         «13» Advertising menu   «18» Unk             │
 │   «04» Bypass menu        «09» Mass DM menu       «14» Boosting menu      «19» Sources         │
-│   «05» VC menu            «10» Mass report menu   «15» Unk                «20» Exit            │
+│   «05» VC menu            «10» Mass report menu   «15» Scraping menu      «20» Exit            │
 │                                                                                                │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
-'''     
+'''         
         menu: str = self.center(text=menu, size=os.get_terminal_size().columns)
         
         for char in ['╭', '╯', '╮', '╰', '─', '│', '»', '«']:
@@ -76,20 +87,39 @@ Free limited version - get paid on https://r3ci.sellhub.cx/product/G4Spam/
 
         print(menu)
 
-    def input(self, text, yesno=False, clean=False):
-        if self.module == None:
-            module = ''
-        else:
-            module = f'{co.main}[{co.reset}{self.module}{co.main}] '
+    def input(self, text, expected=str):
+        module = f'{co.main}[{co.reset}{self.module}{co.main}] ' if self.module else ''
+        
+        if expected == bool:
+            while True:
+                result = input(f'{module}{co.main}[{co.reset}{text}{co.main}] {co.main}({co.reset}y/n{co.main}) {co.main}» {co.reset}')
+                if result.lower() in ['y', 'yes', 'true']:
+                    return True
+                
+                elif result.lower() in ['n', 'no', 'false']:
+                    return False
+                
+                else:
+                    self.log(f'Invalid input expected y/n got {result} - please type y for yes or n for no')
+        
+        while True:
+            result = input(f'{module}{co.main}[{co.reset}{text}{co.main}] {co.main}» {co.reset}')
 
-        if yesno:
-            result = input(f'{module}{co.main}[{co.reset}{text}{co.main}] {co.main}({co.reset}y/n{co.main}) {co.main}» {co.reset}')
-            if result in ['y', 'Y', 'yes', 'Yes', 'YES']:
-                return True
-            else:
-                return False
+            if expected == str:
+                return result
             
-        return input(f'{module}{co.main}[{co.reset}{text}{co.main}] {co.main}» {co.reset}')
+            try:
+                return expected(result)
+            
+            except Exception as e:
+                if expected == int:
+                    self.log(f'Invalid input expected number - please enter a whole number like 1, 5, 100')
+
+                elif expected == float:
+                    self.log(f'Invalid input expected decimal - please enter a number like 1.5, 3.14, 10.0')
+
+                else:
+                    self.log(f'Invalid input expected {str(expected)}')
     
     def delayinput(self):
         if self.module == None:

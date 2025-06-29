@@ -20,7 +20,7 @@ class boostingmenu:
             'If somone wants this quicker give me a nitro token to test and make it :skull:',
             'Back'
         ])
-        chosen = self.ui.input('Option')
+        chosen = self.ui.input('Option', str)
 
         if chosen == '1':
             self.menu()

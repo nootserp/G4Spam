@@ -11,22 +11,22 @@ from src.util.ui import ui
 from src.util.rpc import RPC
 from src.util.logger import logger
 from src.util.other import other
-from src.util.files import files; files.runtasks()
-from src.util.config import config; config()
-
+from src.util.filesTODOPERMS import files; files.runtasks()
+from src.util.configTODOCHECKFORPAIDONLY import config; config()
 from src.modules import *
-
 logger = logger('Main')
-sui = ui('Main')
-RPC.update('Launching...')
+sui = ui('Main') 
+
 logger.log('Adding a launch to stats', True)
 other.addlaunch()
+
 logger.log('Getting repo stars...', True)
 stars = other.getrepostars()
+
 logger.log('Getting launches...', True)
 launches = other.getlaunches()
 
-logger.log('Finished starting G4Spam FREE', True)
+logger.log('Finished starting G4Spam', True)
 
 while True:
     RPC.update('In main menu')
@@ -37,9 +37,9 @@ while True:
     sui.menu()
 
     logger.log('Welcome to G4Spam made by r3ci <3 github.com/R3CI/G4Spam')
-    logger.log(f'Get FULL version on r3ci.sellhub.cx/product/G4Spam')
+    logger.log(f'Get FULL version on https://r3ci.sell.app/product/g4spam')
     logger.log(f'Current version is {version}')
-    chosen = sui.input('Option')
+    chosen = sui.input('Option', str)
 
     options = {
         '1': servermenu().menu,
@@ -52,16 +52,18 @@ while True:
         '8': proxymenu().menu,
         '9': massdmmenu().menu,
         '10': massreportmenu().menu,
-        '11': annoyingmenu().menu,
         '12': funnymenu().menu,
         '13': advertisingmenu().menu,
+        '14': boostingmenu().menu,
+        '15': scrapingmenu().menu,
         '19': sources.menu,
         '20': lambda: exit(),
     }
     try:
         options[chosen]()
-    except KeyError:
+
+    except:
         logger.log('Invalid option')
     
-    logger.log('Finished, enter to continue')
+    logger.log('Finished enter to continue')
     input('')

@@ -25,7 +25,7 @@ class webhookmenu:
             'Deleter',
             'Back'
         ])
-        chosen = self.ui.input('Option')
+        chosen = self.ui.input('Option', str)
 
         if chosen == '1':
             infofetcher().menu()
