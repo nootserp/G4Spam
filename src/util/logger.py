@@ -70,6 +70,14 @@ class logger:
 
         print(f'{ts}{co.main}[{co.reset}{self.module}{co.main}] {co.main}[{co.cyan}{text}{co.main}]{co.reset}')
 
+    def solver(self, text, ts=True):
+        if ts:
+            ts = f'{co.main}[{co.reset}{self.gettimestamp()}{co.main}] '
+        else:
+            ts = ''
+
+        print(f'{ts}{co.main}[{co.reset}{self.module}{co.main}] {co.main}[{co.magenta}{text}{co.main}]{co.reset}')
+
     def error(self, text, error='', ts=True):
         if error == '':
             endstr = ''
@@ -113,7 +121,8 @@ class logger:
             '150009': 'Alerdy a member (no need to verify)',
             '50055': 'Invalid server',
             '50009': 'Verification too high (server requires PV, EV or being in server for 10 mins)',
-            '50035': 'Invalid JSON'
+            '50035': 'Invalid JSON',
+            'Unknown Guild': 'Not in server',
         }
 
         for key in db.keys():
