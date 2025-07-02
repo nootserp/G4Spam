@@ -4,60 +4,51 @@
 # For more details, visit https://github.com/R3CI/G4Spam
 
 version = '1.0.4'
-import sys, os; sys.dont_write_bytecode = True; os.environ['PYTHONDONTWRITEBYTECODE'] = '1'; os.system('cls'); os.system('title G4Spam FREE - launching...')
+
+import sys, os;sys.dont_write_bytecode = True;os.environ['PYTHONDONTWRITEBYTECODE'] = '1';os.system('cls');os.system('title G4Spam FREE - launching...')
 import subprocess
 import time
-try:
-    from datetime import datetime as dt
-    import os
-    from pypresence import Presence
-    import webbrowser
-    import re
-    import json
-    from datetime import timezone
-    import traceback
-    import copy
-    import threading as threadinglib
-    import uuid
-    import requests
-    import string
-    import curl_cffi as curlcffi_
-    import random
-    import pkg_resources
-    import subprocess
-    import base64
-    from curl_cffi import requests as curlcffi
-    from tkinter import Tk
-    from tkinter.filedialog import askopenfilename, askdirectory
-    import os
-    import sys
-    import requests
-    import zipfile
-    import shutil
-    import tempfile
-    from pathlib import Path
 
-except ModuleNotFoundError:
-    print('Installing requirements in 5s')
-    time.sleep(5)
-    os.system('pip install -r requirements.txt')
-    print('Rebooting the script in 5s')
-    time.sleep(5)
-    subprocess.Popen(f'start cmd /k python "{os.path.abspath(__file__)}"', shell=True)
+if sys.prefix == sys.base_prefix:
+    print('[!] Not inside virtual environment Launching run.bat in 3s')
+    time.sleep(3)
+    script = os.path.join(os.path.dirname(__file__), 'run.bat')
+    os.system(f'start "" "{script}"')
     sys.exit()
 
-installedversion = pkg_resources.get_distribution('curl_cffi').version
-result = subprocess.run(['pip', 'install', '--upgrade', 'curl_cffi', '--dry-run'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-if not installedversion in result.stdout:
-    print('Curl cffi outdated, updating in 5s')
-    time.sleep(5)
+from importlib.metadata import version as getpackageversion
+from datetime import datetime as dt, timezone
+from pypresence import Presence
+import webbrowser
+import re
+import json
+import traceback
+import copy
+import threading as threadinglib
+import uuid
+import requests
+import string
+import curl_cffi as curlcffi_
+import random
+import base64
+from curl_cffi import requests as curlcffi
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename, askdirectory
+import zipfile
+import shutil
+import tempfile
+from pathlib import Path
+
+result = subprocess.run(['pip', 'install', '--upgrade', 'curl_cffi', '--dry-run'], capture_output=True, text=True).stdout
+if getpackageversion('curl_cffi') not in result:
+    print('Curl cffi outdated, updating in 5s'); time.sleep(5)
     os.system('pip install --upgrade curl_cffi')
-    print('Rebooting the script in 5s')
-    time.sleep(5)
+    print('Rebooting the script in 5s');         time.sleep(5)
+
     subprocess.Popen(f'start cmd /k python "{os.path.abspath(__file__)}"', shell=True)
     sys.exit()
 
-if not os.environ.get('USERNAME') == 'admin': # just so i dont get spammed with these when deving/testing also them being here is to make it easy to remove too (this does more than u think)
+if os.environ.get('USERNAME') != 'admin':
     webbrowser.open('https://github.com/R3CI/G4Spam')
     webbrowser.open('https://discord.gg/spamming')
     webbrowser.open('https://t.me/g4spam')
@@ -88,4 +79,3 @@ class co:
 
 from src.util.errorhandler import handle_exception
 sys.excepthook = handle_exception
-

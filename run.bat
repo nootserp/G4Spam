@@ -1,20 +1,28 @@
 @echo off
 setlocal
 
+echo [*] Checking virtual environment...
 if not exist "venv" (
-    python -m venv venv
+    echo [*] Creating virtual environment...
+    python -m venv venv >nul 2>&1 || exit /b
 )
 
-REM 
-call venv\Scripts\activate.bat
+echo [*] Activating virtual environment...
+call venv\Scripts\activate.bat || exit /b
 
-REM
-python -m pip install --upgrade pip
+echo [*] Upgrading pip...
+python -m pip install --upgrade pip >nul 2>&1 || (
+    echo [!] pip upgrade failed
+    exit /b
+)
 
-REM 
-pip install -r requirements.txt
+echo [*] Installing dependencies...
+pip install -r requirements.txt >nul 2>&1 || (
+    echo [!] requirements install failed
+    exit /b
+)
 
-REM
+echo [*] Running main.py...
 python main.py
 
 endlocal
