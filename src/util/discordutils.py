@@ -10,8 +10,10 @@ logger = logger('Discord Utils')
 
 class discordutils:
     def extractinv(invite):
-        match: re.Match = re.search(r'(?:(?:http:\/\/|https:\/\/)?discord\.gg\/|discordapp\.com\/invite\/|discord\.com\/invite\/)?([a-zA-Z0-9-]+)', invite)
-        if match: 
+        pattern = r'(?:(?:https?:\/\/)?(?:www\.)?(?:discord\.(?:gg|com)|discordapp\.com)\/(?:invite\/|channels\/@me\/)?)?([a-zA-Z0-9\-_]+)'
+        
+        match = re.search(pattern, invite, re.IGNORECASE)
+        if match:
             return match.group(1)
         
         return invite
@@ -26,26 +28,33 @@ class discordutils:
         return ((int(time.time() * 1000) - 1420070400000) << 22)
     
     def extractids(text):
-        m: re.Match = re.search(r'discord\.com/channels(?:/(@me|\d+))?(?:/(\d+))?(?:/(\d+))?', text)
+        pattern = r'(?:https?:\/\/)?(?:www\.)?(?:discord\.com|discordapp\.com)\/channels(?:\/(@me|\d+))?(?:\/(\d+))?(?:\/(\d+))?'
+        
+        match = re.search(pattern, text, re.IGNORECASE)
         return {
-            'server': m.group(1) if m else None,
-            'channel': m.group(2) if m else None,
-            'message': m.group(3) if m else None
+            'server': match.group(1) if match else None,
+            'channel': match.group(2) if match else None,
+            'message': match.group(3) if match else None
         }
     
     def getreactions(tokens, channelid, messageid):
-        reactions = []
+        logger_ = logger('Get Reactions')
         random.shuffle(tokens[:])
+
+        reactions = []
         try:
             for token in tokens:
                 cl = client(token)
-                for _ in range(5):
+                ctoken = ui().cut(token, 20, '...')
+
+                for _ in range(2):
                     r = cl.sess.get(
                         f'https://discord.com/api/v9/channels/{channelid}/messages?limit=50',
                         headers=cl.headers
                     )
 
                     if r.status_code == 200:
+                        logger_.succeded(f'{ctoken} Fetched reactions', False)
                         for message in r.json():
                             if message['id'] == messageid:
                                 for reaction in message['reactions']:
@@ -59,26 +68,35 @@ class discordutils:
                                 
                                 return reactions
 
-
                     elif 'retry_after' in r.text:
                         limit = r.json().get('retry_after', 1.5)
-                        time.sleep(limit)
+                        logger_.ratelimited(f'{ctoken} Rate limited', limit, False)
+                        time.sleep(float(limit))
 
                     elif 'Try again later' in r.text:
-                        time.sleep(15)
+                        logger_.ratelimited(f'{ctoken} Rate limited', 5, False)
+                        time.sleep(5)
 
                     elif 'Cloudflare' in r.text:
+                        logger_.cloudflared(f'{ctoken} Cloudflare rate limited', 10, False)
                         time.sleep(10)
+                    
+                    elif 'captcha_key' in r.text:
+                        logger_.hcaptcha(f'{ctoken} Hcaptcha required', False)
+
+                    elif 'You need to verify' in r.text:
+                        logger_.locked(f'{ctoken} Locked/Flagged', False)
 
                     else:
-                        break
+                        error = logger_.errordatabase(r.text)
+                        logger_.error(f'{ctoken}', error, False)
                 
                 if reactions:
                     break
             
-            logger.error('Failed to fetch reactions')
+            logger_.error('Failed to fetch reactions', '', False)
             return reactions
             
         except Exception as e:
-            logger.error('Failed to fetch reactions', e, False)
+            logger_.error('Failed to fetch reactions', e, False)
             return reactions
