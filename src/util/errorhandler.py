@@ -9,8 +9,8 @@ logger = logger('Error Handler')
 
 def handle_exception(exc_type, exc_value, exc_traceback):
     tb = ''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))
-    logger.error(text=tb)
-    logger.log(text='Press enter to quit, if this keeps happening join the discord and report the error (REDOWNLOADING MIGHT FIX THIS ISSUE)', ts=True)
+    logger.error(tb)
+    logger.log('Press enter to quit, if this keeps happening join the discord and report the error (REDOWNLOADING MIGHT FIX THIS ISSUE)', True)
     input('')
     sys.exit()
 
