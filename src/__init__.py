@@ -3,7 +3,7 @@
 # Licensed under the GNU General Public License v3.0 (GPL-3.0).
 # For more details, visit https://github.com/R3CI/G4Spam
 
-version = '1.0.4'
+version = '1.0.5'
 
 import sys, os;sys.dont_write_bytecode = True;os.environ['PYTHONDONTWRITEBYTECODE'] = '1';os.system('cls');os.system('title G4Spam FREE - launching...')
 import subprocess
@@ -12,7 +12,7 @@ import time
 if sys.prefix == sys.base_prefix:
     print('[!] Not inside virtual environment Launching run.bat in 3s')
     time.sleep(3)
-    script = os.path.join(os.path.dirname(__file__), 'run.bat')
+    script = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'run.bat')
     os.system(f'start "" "{script}"')
     sys.exit()
 
@@ -38,15 +38,6 @@ import zipfile
 import shutil
 import tempfile
 from pathlib import Path
-
-result = subprocess.run(['pip', 'install', '--upgrade', 'curl_cffi', '--dry-run'], capture_output=True, text=True).stdout
-if getpackageversion('curl_cffi') not in result:
-    print('Curl cffi outdated, updating in 5s'); time.sleep(5)
-    os.system('pip install --upgrade curl_cffi')
-    print('Rebooting the script in 5s');         time.sleep(5)
-
-    subprocess.Popen(f'start cmd /k python "{os.path.abspath(__file__)}"', shell=True)
-    sys.exit()
 
 if os.environ.get('USERNAME') != 'admin':
     webbrowser.open('https://github.com/R3CI/G4Spam')
