@@ -24,13 +24,13 @@ class client:
         self.wssessid = str(uuid.uuid4())
         self.sess.cookies.update(cookie)
 
-        self.headers = apibypassing.headers
+        self.headers = copy.deepcopy(apibypassing.headers)
         self.headers['authorization'] = token
 
-        xsuper = apibypassing.xsuper  
+        xsuper = copy.deepcopy(apibypassing.xsuper)
         xsuper['client_launch_id'] = self.launchid
         xsuper['client_heartbeat_session_id'] = self.wssessid
         xsuper = apibypassing.encode(xsuper)
-        self.headers['X-Super-Properties'] = xsuper
+        self.headers['x-super-properties'] = xsuper
 
         
