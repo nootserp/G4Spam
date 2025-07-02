@@ -6,6 +6,7 @@
 from src import *
 from src.util.client import client
 from src.util.logger import logger
+from src.util.ui import ui
 logger = logger('Discord Utils')
 
 class discordutils:
