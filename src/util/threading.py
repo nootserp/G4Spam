@@ -29,27 +29,27 @@ class threading:
             
             for thread in threads:
                 thread.join()
-
+                
         except CurlError as e:
-            self.log.error(e)
+            self.log.error('CurlError', str(e))
 
         except curl_exceptions.ConnectionError as e:
-            self.log.error(e)
+            self.log.error('Connection error', str(e))
 
         except curl_exceptions.HTTPError as e:
-            self.log.error(e)
+            self.log.error('HTTP error', str(e))
 
         except curl_exceptions.ReadTimeout as e:
-            self.log.error(e)
+            self.log.error('Read timeout', str(e))
 
         except curl_exceptions.Timeout as e:
-            self.log.error(e)
+            self.log.error('Timeout error', str(e))
 
         except curl_exceptions.TooManyRedirects as e:
-            self.log.error(e)
+            self.log.error('Too many redirects', str(e))
 
         except curl_exceptions.RequestException as e:
-            self.log.error(e)
-
+            self.log.error('Request exception', str(e))
+        
         except Exception as e:
-            self.log.error(e)
+            self.log.error('Unexpected error', str(e))
