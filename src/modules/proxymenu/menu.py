@@ -12,24 +12,26 @@ class proxymenu:
         self.module = 'Proxy Menu'
         self.logger = logger(self.module)
         self.ui = ui(self.module)
-
-    def menu(self):
-        self.ui.prep()
-        self.ui.createmenu([
-            'Proxy format (PAID)',
-            'Proxy Checker (PAID)',
-            'Back'
-        ])
-        chosen = self.ui.input('Option', str)
-
-        if chosen == '1':
-            self.logger.log('This feature is paid only')
-            
-        if chosen == '2':
-            self.logger.log('This feature is paid only')
-
-        elif chosen == '3':
-            return
         
-        else:
-            self.menu()
+    def menu(self):
+        options = {
+            'Proxy Format': lambda: (self.logger.log('Format it like this user:password@host:port'), input(''))[1],
+            'Proxy Formatter': lambda: (self.logger.log('Added soon bc it actualy needs more work than u think'), input(''))[1],
+            'Proxy Checker': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+        }
+        
+        while True:
+            self.ui.optionmenu(options)
+            choice = self.ui.input('Option', int) - 1
+            keys = list(options.keys())
+            
+            if choice == len(keys):
+                return
+            
+            elif choice < len(keys):
+                options[keys[choice]]()
+                break
+            
+            else:
+                self.logger.log('Invalid option')
+                input('')

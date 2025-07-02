@@ -7,15 +7,15 @@ from src import *
 from src.util.logger import logger
 from src.util.ui import ui
 
-class massdmmenu:
+class serveradminmenu:
     def __init__(self):
-        self.module = 'Mass DM Menu'
+        self.module = 'Server Admin Menu'
         self.logger = logger(self.module)
         self.ui = ui(self.module)
 
     def menu(self):
         options = {
-            'One-User Mass DM': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+            'Soon': lambda: (self.logger.log('Coming soon'))[0],
         }
         
         while True:

@@ -16,30 +16,25 @@ class bypassmenu:
         self.ui = ui(self.module)
 
     def menu(self):
-        self.ui.prep()
-        self.ui.createmenu([
-            'Reaction bypass',
-            'Button bypass (PAID)',
-            'Onboarding (PAID)',
-            'Rules (PAID)',
-            'Back'
-        ])
-        chosen = self.ui.input('Option', str)
-
-        if chosen == '1':
-            reactionbypass().menu()
-
-        elif chosen == '2':
-            self.logger.log('This feature is paid only')
-
-        elif chosen == '3':
-            self.logger.log('This feature is paid only')
+        options = {
+            'Reaction Bypass (FREE)': reactionbypass().menu,
+            'Button Bypass': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+            'Onboarding': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+            'Rule Bypass': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+        }
         
-        elif chosen == '4':
-            self.logger.log('This feature is paid only')
-
-        elif chosen == '5':
-            return
-        
-        else:
-            self.menu()
+        while True:
+            self.ui.optionmenu(options)
+            choice = self.ui.input('Option', int) - 1
+            keys = list(options.keys())
+            
+            if choice == len(keys):
+                return
+            
+            elif choice < len(keys):
+                options[keys[choice]]()
+                break
+            
+            else:
+                self.logger.log('Invalid option')
+                input('')

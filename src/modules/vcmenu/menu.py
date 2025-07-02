@@ -14,26 +14,24 @@ class vcmenu:
         self.ui = ui(self.module)
 
     def menu(self):
-        self.ui.prep()
-        self.ui.createmenu([
-            'VC joiner (PAID)',
-            'VC Spam join-leave (PAID)',
-            'Soundboard spammer (PAID)',
-            'Back'
-        ])
-        chosen = self.ui.input('Option', str)
-
-        if chosen == '1':
-            self.logger.log('This feature is paid only')
-
-        elif chosen == '2':
-            self.logger.log('This feature is paid only')
-
-        elif chosen == '3':
-            self.logger.log('This feature is paid only')
-
-        elif chosen == '4':
-            return
+        options = {
+            'VC Joiner': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+            'VC Spam Join-Leave': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+            'Soundboard Spammer': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+        }
         
-        else:
-            self.menu()
+        while True:
+            self.ui.optionmenu(options)
+            choice = self.ui.input('Option', int) - 1
+            keys = list(options.keys())
+            
+            if choice == len(keys):
+                return
+            
+            elif choice < len(keys):
+                options[keys[choice]]()
+                break
+            
+            else:
+                self.logger.log('Invalid option')
+                input('')

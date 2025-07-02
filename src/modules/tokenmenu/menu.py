@@ -17,22 +17,27 @@ class tokenmenu:
         self.ui = ui(self.module)
 
     def menu(self):
-        self.ui.prep()
-        self.ui.createmenu([
-            'Checker',
-            'Formatter',
-            'Back'
-        ])
-        chosen = self.ui.input('Option', str)
-
-        if chosen == '1':
-            checker().menu()
-
-        elif chosen == '2':
-            formatter().menu()
-
-        elif chosen == '3':
-            return
+        options = {
+            'Checker (FREE)': checker().menu,
+            'Bio Changer': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+            'Avatar Changer': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+            'Clan Tag Changer': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+            'Log On Browser': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+            'Formatter (FREE)': formatter().menu
+        }
         
-        else:
-            self.menu()
+        while True:
+            self.ui.optionmenu(options)
+            choice = self.ui.input('Option', int) - 1
+            keys = list(options.keys())
+            
+            if choice == len(keys):
+                return
+            
+            elif choice < len(keys):
+                options[keys[choice]]()
+                break
+            
+            else:
+                self.logger.log('Invalid option')
+                input('')

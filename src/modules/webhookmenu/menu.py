@@ -18,26 +18,24 @@ class webhookmenu:
         self.ui = ui(self.module)
 
     def menu(self):
-        self.ui.prep()
-        self.ui.createmenu([
-            'Info fetcher',
-            'Spammer',
-            'Deleter',
-            'Back'
-        ])
-        chosen = self.ui.input('Option', str)
-
-        if chosen == '1':
-            infofetcher().menu()
-
-        elif chosen == '2':
-            spammer().menu()
-
-        elif chosen == '3':
-            deleter().menu()
-
-        elif chosen == '4':
-            return
+        options = {
+            'Info Fetcher': infofetcher().menu,
+            'Spammer': spammer().menu,
+            'Deleter': deleter().menu
+        }
         
-        else:
-            self.menu()
+        while True:
+            self.ui.optionmenu(options)
+            choice = self.ui.input('Option', int) - 1
+            keys = list(options.keys())
+            
+            if choice == len(keys):
+                return
+            
+            elif choice < len(keys):
+                options[keys[choice]]()
+                break
+            
+            else:
+                self.logger.log('Invalid option')
+                input('')

@@ -14,18 +14,22 @@ class advertisingmenu:
         self.ui = ui(self.module)
 
     def menu(self):
-        self.ui.prep()
-        self.ui.createmenu([
-            'Soon',
-            'Back'
-        ])
-        chosen = self.ui.input('Option', str)
-
-        if chosen == '1':
-            self.menu()
-
-        elif chosen == '2':
-            return
+        options = {
+            'Token Filler': lambda: (self.logger.log('This option is PAID ONLY, enter to continue'), input('')),
+        }
         
-        else:
-            self.menu()
+        while True:
+            self.ui.optionmenu(options)
+            choice = self.ui.input('Option', int) - 1
+            keys = list(options.keys())
+            
+            if choice == len(keys):
+                return
+            
+            elif choice < len(keys):
+                options[keys[choice]]()
+                break
+            
+            else:
+                self.logger.log('Invalid option')
+                input('')
