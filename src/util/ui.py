@@ -6,6 +6,7 @@
 from src import *
 from src.util.files import files
 from src.util.rpc import RPC
+from src.util.other import other
 
 class ui:
     def __init__(self, module=None):
@@ -43,7 +44,7 @@ class ui:
                 centeredlines.append(' ' * padding + line)
         
         return '\n'.join(centeredlines)
-    
+
     def bar(self):
         bar = fr'{co.main}«{len(files.gettokens())}» Tokens                   «{len(files.getproxies())}» Proxies'
 
@@ -69,17 +70,17 @@ class ui:
         
     def menu(self):
         menu = fr'''{co.reset}
-YOU ARE USING THE FREE LIMITED VERSION | GET PAID HERE │ https://r3ci.sell.app/product/g4spam
+USING FREE VERSION MEANING LESS UPDATES AND WORSE BYPASSING │ GET PAID VERSION ON https://r3ci.sell.app/product/g4spam
 ╭────────────────────────────────────────────────────────────────────────────────────────────────╮
 │                                                                                                │
 │   «01» Server menu        «06» Webhook menu       «11» Unk                «18» Unk             │
-│   «02» Token menu         «07» Nuking menu        «12» Funnny menu        «17» Unk             │
+│   «02» Token menu         «07» Server Admin menu  «12» Funnny menu        «17» Unk             │
 │   «03» Spamming menu      «08» Proxy menu         «13» Advertising menu   «18» Unk             │
 │   «04» Bypass menu        «09» Mass DM menu       «14» Boosting menu      «19» Sources         │
 │   «05» VC menu            «10» Mass report menu   «15» Scraping menu      «20» Exit            │
 │                                                                                                │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
-'''         
+'''     
         menu: str = self.center(text=menu, size=os.get_terminal_size().columns)
         
         for char in ['╭', '╯', '╮', '╰', '─', '│', '»', '«']:
@@ -120,7 +121,7 @@ YOU ARE USING THE FREE LIMITED VERSION | GET PAID HERE │ https://r3ci.sell.app
 
                 else:
                     self.log(f'Invalid input expected {str(expected)}')
-    
+
     def delayinput(self):
         if self.module == None:
             module = ''
@@ -143,6 +144,10 @@ YOU ARE USING THE FREE LIMITED VERSION | GET PAID HERE │ https://r3ci.sell.app
         
         print('\n'.join(toprint))
 
+    def optionmenu(self, options):
+        self.prep()
+        self.createmenu(list(options.keys()) + ['Back'])
+
     def prep(self):
         RPC.update(f'Using {self.module}')
         self.cls()
@@ -157,5 +162,6 @@ YOU ARE USING THE FREE LIMITED VERSION | GET PAID HERE │ https://r3ci.sell.app
             if len(text) <= length:
                 return text
             return text[:length] + end
+        
         except Exception:
             return str(text)

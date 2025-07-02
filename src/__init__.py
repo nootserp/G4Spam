@@ -16,6 +16,7 @@ try:
     import json
     from datetime import timezone
     import traceback
+    import copy
     import threading as threadinglib
     import uuid
     import requests

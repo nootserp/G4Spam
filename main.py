@@ -29,6 +29,8 @@ launches = other.getlaunches()
 logger.log('Checking config...', True)
 config().check()
 
+logger.log(f'Connecting tokens is PAID only, this will result in bit worse bypassing', True)
+
 logger.log('Finished starting G4Spam', True)
 
 while True:
@@ -43,7 +45,6 @@ while True:
     logger.log(f'Get FULL version on https://r3ci.sell.app/product/g4spam')
     logger.log(f'Current version is {version}')
     chosen = sui.input('Option', str)
-
     options = {
         '1': servermenu().menu,
         '2': tokenmenu().menu,
@@ -51,7 +52,7 @@ while True:
         '4': bypassmenu().menu,
         '5': vcmenu().menu,
         '6': webhookmenu().menu,
-        '7': nukingmenu().menu,
+        '7': serveradminmenu().menu,
         '8': proxymenu().menu,
         '9': massdmmenu().menu,
         '10': massreportmenu().menu,
@@ -62,6 +63,7 @@ while True:
         '19': sources.menu,
         '20': lambda: exit(),
     }
+
     try:
         options[chosen]()
 
