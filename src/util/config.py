@@ -21,8 +21,12 @@ class config:
             'Solver': {
                 'Enabled': (False, 'Enable solver'),
                 'API Key': ('SOLVERAPIKEY', 'Your solver api key'),
-                'Service': ('soon', 'Your solver service (freecap, vastcap)')
+                'Service': ('soon', 'Your solver service (vastcap, freecap) NOT SURE ABOUT VASTCAPS REPUTATION DWC')
             },
+            'Debug': {
+                'Enabled': (False, 'Enable debug mode'),
+                'Pause': (False, 'Pause on debug message')
+            }
         }
         self.config = {}
         self.load()
@@ -98,7 +102,7 @@ class config:
             input('')
 
         if get.solver.enabled():
-            logger.log('Proxies are PAID ONLY switched them off in the config for you! Enter to continue')
+            logger.log('Solver is PAID ONLY switched them off in the config for you! Enter to continue')
             switch.proxies.enabled.false()
             input('')
 
